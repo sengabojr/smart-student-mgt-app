@@ -1,0 +1,71 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.sidebar {
+    width: 250px;
+    height: 603px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+}
+
+.nav {
+    margin-left: 40px;
+}
+.nav ul {
+    list-style: none;   
+}
+.nav ul li a{
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: Calibri;
+    color:rgba(0, 0, 0, 01);
+}
+
+.main {
+    height: 100px;
+    font-weight: bolder;
+    font-size: 40px;
+    text-align: center;
+    font-family: Calibri;
+    margin-left: 250px;
+    width: 1018.8px;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin-top: -603px;
+    border-left: 0.00001px solid rgba(0, 0, 0, 0.5);
+}
+.nav ul li a:hover{
+    color: blue;
+}
+table {
+    margin-left: 200px;
+    color: lightslategray;
+}
+.text {
+    margin-left: 270px;
+}
+.hmm {
+    margin-left: 400px;
+}
+
+.logo-container {
+    width: 100px;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.2);
+    text-align: center;
+    border-radius: 15px;
+    margin-left: 90px;
+}
+.form-club {
+    margin-left: 270px;
+}
+.links {
+    margin-left: 270px;
+}

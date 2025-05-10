@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    background: linear-gradient(to right, rgb(28, 144, 165),rgb(15, 80, 133),rgb(7, 17, 145));
+}
+.container{
+    position: fixed;
+    color: rgb(0, 0, 0);
+    background-color: rgb(245, 245, 245);
+    height: 100%;
+    
+}   
+ul{
+    margin: 20px;
+    color: black;
+    list-style: none;
+    
+} 
+ul a{
+    text-decoration: none;
+    padding: 20px;
+    color: rgb(13, 7, 46);
+    
+}        
