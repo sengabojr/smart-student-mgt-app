@@ -4,123 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journal Entry</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="logo_off.png" type="image/x-icon">
-    <style>
-.container {
-    text-align: center;
-    margin-left: 570px;
-    width: 400px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    text-align: center;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 10px;
-}
-
-input, textarea {
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    margin-top: 10px;
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="side">
-        <br><br>
-        <div class="logo-container">
-        <img src="logo_off.png" class="logo">
-    </div>
-    <br><br>
-        <ul>
-            <li><a href="student.php">Home</a></li>
-            <br>
-            <li><a href="clubs.php">Clubs</a></li><br>
-            <li><a href="journals.php" style="color: blue;">Journals</a></li><br>
-            <li><a href="st_notification.php">Notifications</a></li><br>
-            <li><a href="records.php">Records</a></li><br>
-            <li><a href="logout.php">Logout</a></li>
-        </ul>
-    </div>
-    <div class="nav">
-        <br>
-        <h1>Students Dashboard</h1>
-    </div>
-    <br><br><br>
-    <div class="container">
-        <h2>Add a Journal Entry</h2>
-        <form action="journals.php" method="POST">
-            <label for="student_id">Student Id:</label>
-            <input type="text" id="student_id" name="student_id" required>
-
-            <label for="content">Journal Content:</label>
-            <textarea id="content" name="content" required></textarea>
-
-            <button type="submit">Submit</button>
-        </form>
-        <br>
-        <?php
-include("conn.php");
-if (isset($_POST["submit"])) {
-$student_id = $_POST['student_id'];
-$content = $_POST['content'];
-$created_at = date("Y-m-d H:i:s");
-$sql = "INSERT INTO journals (student_id, content, created_at) VALUES ('$student_id', '$content', '$created_at')";
-
-$role_check_sql = "SELECT role FROM users WHERE id = '$student_id'";
-$role_result = mysqli_query($conn, $role_check_sql);
-
-if ($role_result && mysqli_num_rows($role_result) > 0) {
-    $row = mysqli_fetch_assoc($role_result);
+<body class="bg-gray-100 flex min-h-screen">
     
-    if ($row['role'] === 'student') {
-        $insert_sql = "INSERT INTO journals (student_id, content, created_at) VALUES ('$student_id', '$content', '$created_at')";
-        if (mysqli_query($conn, $insert_sql)) {
-            echo "Journal entry added successfully!";
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
-    } else {
-        echo "Error: Only students can add journal entries.";
-    }
-} else {
-    echo "Error: Student Id not found.";
-}
-}
-mysqli_close($conn);
-?>
+    <div class="sidebar w-64 bg-white shadow-xl flex flex-col p-6 fixed h-full">
+        <br><br>
+        <div class="logo-container mb-12">
+            <img src="logo_off.png" class="logo w-24 h-auto mx-auto">
+        </div>
+        
+        <div class="nav flex-grow">
+            <ul class="space-y-4">
+                <li><a href="student.php" class="text-gray-700 text-lg hover:text-blue-600 transition duration-150 block py-2 px-4 rounded-lg">Home</a></li>
+                <li><a href="clubs.php" class="text-gray-700 text-lg hover:text-blue-600 transition duration-150 block py-2 px-4 rounded-lg">Clubs</a></li>
+                <li><a href="journals.php" class="text-blue-600 font-semibold text-lg hover:text-blue-800 transition duration-150 block py-2 px-4 rounded-lg bg-blue-50">Journals</a></li>
+                <li><a href="st_notification.php" class="text-gray-700 text-lg hover:text-blue-600 transition duration-150 block py-2 px-4 rounded-lg">Notifications</a></li>
+                <li><a href="records.php" class="text-gray-700 text-lg hover:text-blue-600 transition duration-150 block py-2 px-4 rounded-lg">Records</a></li>
+            </ul>
+        </div>
+        
+        <div class="mt-auto pt-6 border-t border-gray-200">
+             <a href="logout.php" class="text-red-500 font-medium text-lg hover:text-red-700 transition duration-150 block py-2 px-4 rounded-lg">Logout</a>
+        </div>
     </div>
-    <br><br><br><br><br>
-    <footer style="margin-left: 630px">
-        <h4>All Rights Reserved | &copy; Group IV 2025</h>
-    </footer>
+
+    <div class="main flex-grow ml-64 p-8">
+        <div class="nav mb-8">
+            <h1 class="text-3xl font-extrabold text-gray-800 border-b-2 border-blue-500 pb-1 inline-block">Students Dashboard</h1>
+        </div>
+        
+        <div class="flex justify-center mt-10">
+            <div class="container w-full max-w-md bg-white p-8 rounded-xl shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Add a Journal Entry</h2>
+                
+                <form action="journals.php" method="POST" class="space-y-4">
+                    
+                    <div class="flex flex-col">
+                        <label for="student_id" class="text-left text-sm font-medium text-gray-700 mb-1">Student Id:</label>
+                        <input type="text" id="student_id" name="student_id" required
+                               class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div class="flex flex-col">
+                        <label for="content" class="text-left text-sm font-medium text-gray-700 mb-1">Journal Content:</label>
+                        <textarea id="content" name="content" required rows="5"
+                                  class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"></textarea>
+                    </div>
+
+                    <button type="submit" name="submit"
+                            class="w-full bg-green-600 text-white font-semibold py-3 rounded-lg shadow-md hover:bg-green-700 transition duration-150 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 mt-6">
+                        Submit
+                    </button>
+                </form>
+                
+                <div class="mt-4 text-center">
+                    <?php
+                    include("conn.php");
+                    if (isset($_POST["submit"])) {
+                    $student_id = $_POST['student_id'];
+                    $content = $_POST['content'];
+                    $created_at = date("Y-m-d H:i:s");
+                    $sql = "INSERT INTO journals (student_id, content, created_at) VALUES ('$student_id', '$content', '$created_at')";
+
+                    $role_check_sql = "SELECT role FROM users WHERE id = '$student_id'";
+                    $role_result = mysqli_query($conn, $role_check_sql);
+
+                    if ($role_result && mysqli_num_rows($role_result) > 0) {
+                        $row = mysqli_fetch_assoc($role_result);
+                        
+                        if ($row['role'] === 'student') {
+                            $insert_sql = "INSERT INTO journals (student_id, content, created_at) VALUES ('$student_id', '$content', '$created_at')";
+                            if (mysqli_query($conn, $insert_sql)) {
+                                echo "<p class='text-green-600 font-medium'>Journal entry added successfully!</p>";
+                            } else {
+                                echo "<p class='text-red-600 font-medium'>Error: " . mysqli_error($conn) . "</p>";
+                            }
+                        } else {
+                            echo "<p class='text-red-600 font-medium'>Error: Only students can add journal entries.</p>";
+                        }
+                    } else {
+                        echo "<p class='text-red-600 font-medium'>Error: Student Id not found.</p>";
+                    }
+                    }
+                    mysqli_close($conn);
+                    ?>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="mt-12 text-center w-full">
+            <h4 class="text-gray-500 text-sm">All Rights Reserved | &copy; Group IV 2025</h4>
+        </footer>
+    </div>
 </body>
 </html>
